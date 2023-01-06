@@ -13,11 +13,11 @@ function Balance() {
         </div>
       </div>
       <div className="row pb-2">
-        <button type="button" class="btn btn-primary m-2">
+        <button type="button" className="btn btn-primary m-2">
           Reacharge
         </button>
-        <button type="button" class="btn btn-light m-2">
-          Light
+        <button type="button" className="btn btn-light m-2">
+          Trend
         </button>
         <div className="pt-3 float-end">
           <a href="#" style={{ color: "white" }}>

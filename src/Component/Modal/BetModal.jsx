@@ -5,14 +5,14 @@ function BetMoney({ betModal, setBetModal }) {
   return (
     <div>
       {betModal ? (
-        <div class="modal show" style={{ display: "block" }} id="myModal">
-          <div class="modal-dialog ">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h3 class="modal-title">Save IP Address</h3>
+        <div className="modal show" style={{ display: "block" }} id="myModal">
+          <div className="modal-dialog ">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h3 className="modal-title">Save IP Address</h3>
                 <button
                   type="button"
-                  class="close"
+                  className="close"
                   data-dismiss="modal"
                   onClick={() => {
                     setBetModal(!betModal);
@@ -21,19 +21,19 @@ function BetMoney({ betModal, setBetModal }) {
                   ×
                 </button>
               </div>
-              <div class="modal-body">
-                <div class="container">
-                  <div class="">
+              <div className="modal-body">
+                <div className="container">
+                  <div className="">
                     <form>
-                      <h class="heading mt-3">IP</h>
+                      <h className="heading mt-3">IP</h>
                       <input
                         type="text"
                         id=""
                         name="IP"
                         placeholder="xxx.xxx.xxx.xxx"
-                        className="form-control"
+                        classNameName="form-control"
                       />
-                      <h6 class="detail mt-3">Select IP Type</h6>
+                      <h6 className="detail mt-3">Select IP Type</h6>
                       <select name="IPType" id="cars" className="form-control">
                         <option value="volvo">API IP</option>
                         <option value="saab">Saab</option>
@@ -44,13 +44,16 @@ function BetMoney({ betModal, setBetModal }) {
                         <option value="mercedes">Mercedes</option>
                         <option value="audi">Audi</option>
                       </select>
-                      <button type="button" class="btn btn-outline-dark m-3">
+                      <button
+                        type="button"
+                        className="btn btn-outline-dark m-3"
+                      >
                         Save
                       </button>
 
                       <button
                         type="button"
-                        class="btn btn-dark"
+                        className="btn btn-dark"
                         onClick={() => {
                           setBetModal(!betModal);
                         }}

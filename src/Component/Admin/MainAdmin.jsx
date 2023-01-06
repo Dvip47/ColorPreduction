@@ -6,8 +6,8 @@ export default function MainAdmin() {
   return (
     <div className="" style={{ height: "590px", backgroundColor: "#f7faf8" }}>
       {/* <Login /> */}
-      {/* <Register /> */}
-      <Forgot />
+      <Register />
+      {/* <Forgot /> */}
     </div>
   );
 }

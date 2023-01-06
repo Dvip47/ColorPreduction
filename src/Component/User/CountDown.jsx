@@ -1,38 +1,90 @@
-import { useEffect, useMemo, useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 
-const SECOND = 1000;
-const MINUTE = SECOND * 60;
-const HOUR = MINUTE * 60;
-const DAY = HOUR * 24;
+const CountDown = () => {
+  // We need ref in this, because we are dealing
+  // with JS setInterval to keep track of it and
+  // stop it when needed
+  const Ref = useRef(null);
 
-export const CountDown = ({ deadline = new Date().toString() }) => {
-  const parsedDeadline = useMemo(() => Date.parse(deadline), [deadline]);
-  const [time, setTime] = useState(parsedDeadline - Date.now());
+  // The state for our timer
+  const [timer, setTimer] = useState("00:00:00");
 
+  const getTimeRemaining = (e) => {
+    const total = Date.parse(e) - Date.parse(new Date());
+    const seconds = Math.floor((total / 1000) % 60);
+    const minutes = Math.floor((total / 1000 / 60) % 60);
+    const hours = Math.floor((total / 1000 / 60 / 60) % 24);
+    return {
+      total,
+      hours,
+      minutes,
+      seconds,
+    };
+  };
+
+  const startTimer = (e) => {
+    let { total, minutes, seconds } = getTimeRemaining(e);
+    if (total >= 0) {
+      // update the timer
+      // check if less than 10 then we need to
+      // add '0' at the beginning of the variable
+      setTimer(
+        (minutes > 9 ? minutes : "0" + minutes) +
+          ":" +
+          (seconds > 9 ? seconds : "0" + seconds)
+      );
+    }
+  };
+
+  const clearTimer = (e) => {
+    // If you adjust it you should also need to
+    // adjust the Endtime formula we are about
+    // to code next
+    setTimer("60:00");
+
+    // If you try to remove this line the
+    // updating of timer Variable will be
+    // after 1000ms or 1sec
+    if (Ref.current) clearInterval(Ref.current);
+    const id = setInterval(() => {
+      startTimer(e);
+    }, 1000);
+    Ref.current = id;
+  };
+
+  const getDeadTime = () => {
+    let deadline = new Date();
+
+    // This is where you need to adjust if
+    // you entend to add more time
+    deadline.setSeconds(deadline.getSeconds() + 3600);
+    return deadline;
+  };
+
+  // We can use useEffect so that when the component
+  // mount the timer will start as soon as possible
+
+  // We put empty array to act as componentDid
+  // mount only
   useEffect(() => {
-    const interval = setInterval(
-      () => setTime(parsedDeadline - Date.now()),
-      1000
-    );
+    clearTimer(getDeadTime());
+  }, []);
 
-    return () => clearInterval(interval);
-  }, [parsedDeadline]);
+  // Another way to call the clearTimer() to start
+  // the countdown is via action event from the
+  // button first we create function to be called
+  // by the button
+  const onClickReset = () => {
+    clearTimer(getDeadTime());
+  };
+  // setInterval(onClickReset, 10000);
 
   return (
-    <div className="timer">
-      {Object.entries({
-        Days: time / DAY,
-        Hours: (time / HOUR) % 24,
-        Minutes: (time / MINUTE) % 60,
-        Seconds: (time / SECOND) % 60,
-      }).map(([label, value]) => (
-        <div key={label} className="col-4">
-          <div className="box">
-            <p>{`${Math.floor(value)}`.padStart(2, "0")}</p>
-            <span className="text">{label}</span>
-          </div>
-        </div>
-      ))}
+    <div className="App">
+      <h2>{timer}</h2>
+      <button onClick={onClickReset}>Reset</button>
     </div>
   );
 };
+
+export default CountDown;

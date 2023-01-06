@@ -2,7 +2,7 @@ import React from "react";
 
 function Footer() {
   return (
-    <div className="container-xxl">
+    <div className="container-xxl footer">
       <div className="row">
         <div className="col text-center">
           <button className="btn">
